@@ -16,14 +16,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Member findMember = em.find(Member.class, 1L);
-            List<Member> result = em.createQuery("select m from Member as m", Member.class)
-                            .getResultList();
+            //쿼리를 통해 DB에 저장된 값을 가져옴.
+            Member findMember1 = em.find(Member.class, 101L);
 
-            for (Member member : result) {
-                System.out.println("Member.name = " + member.getName());
-            }
+            //1차 캐시에서 값을 가져옴.
+            Member findMember2 = em.find(Member.class, 101L);
 
+            System.out.println("findMember1 = " + findMember1);
+            System.out.println("findMember2 = " + findMember2);
 
             tx.commit();
         } catch (Exception e) {
